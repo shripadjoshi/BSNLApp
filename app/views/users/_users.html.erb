@@ -1,0 +1,13 @@
+<% users.each do |user| %>
+  <tr>    
+    <td><%= user.username %></td>
+    <td><%= user.email %></td>
+    <td width="20%">
+      <% if current_user != user %>
+        <%= user.account_active? ? 'Yes' : 'No' %>
+      <% else %>
+        Yes
+      <% end %>
+    </td>
+   </tr>
+<%end%>

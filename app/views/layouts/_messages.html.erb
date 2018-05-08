@@ -1,5 +1,1 @@
-<% flash.each do |name, msg| %>
-  <% if msg.is_a?(String) %>
-    <%= content_tag :div, msg, id: "flash_#{name}", class: "alert-dismissible alert-#{name == 'notice' ? 'success' : 'error'}"%>
-  <% end %>
-<% end %>
+<%= flash_messages %>

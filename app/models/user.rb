@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  rolify
 
   validates :username, presence: :true, uniqueness: { case_sensitive: false }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
@@ -26,8 +27,13 @@ class User < ApplicationRecord
   end
 
   def validate_username
-    if User.where(email: username).exists?
-      errors.add(:username, :invalid)
-    end
+    errors.add(:username, :invalid) if User.where(email: username).exists?
+  end
+
+  def active_for_authentication?
+    # Comment out the below debug statement to view the properties of the returned self model values.
+    # logger.debug self.to_yaml
+
+    super && account_active?
   end
 end

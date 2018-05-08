@@ -1,0 +1,21 @@
+<fieldset>
+  <legend> Users </legend>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Active</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render "users", users: @users %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3"><%= pluralize(@users.size, 'user') %></td>
+      </tr>
+    </tfoot>
+  </table>
+  <%= will_paginate @users %>
+</fieldset>

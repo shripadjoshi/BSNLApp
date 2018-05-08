@@ -1,0 +1,23 @@
+<div align="right">
+  <%= link_to('Add New Role', new_role_path) if current_user.has_role? :admin %>
+</div>
+<fieldset>
+  <legend> Roles </legend>
+  <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th data-sorter="false">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render "roles", roles: @roles %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2"><%= pluralize(@roles.size, 'role') %></td>
+      </tr>
+    </tfoot>
+  </table>
+  <%= will_paginate @roles %>
+</fieldset>
