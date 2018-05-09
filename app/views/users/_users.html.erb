@@ -4,7 +4,7 @@
     <td><%= user.email %></td>
     <td width="20%">
       <% if current_user != user %>
-        <%= user.account_active? ? 'Yes' : 'No' %>
+        <%= check_box_tag("user_account_active", nil, user.account_active? , class: "checkbox", user_id: user.id) %>
       <% else %>
         Yes
       <% end %>

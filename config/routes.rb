@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :roles
-  resources :users, only: :index
+  resources :users, only: [:index] do
+    put 'status', on: :member
+  end
 end
