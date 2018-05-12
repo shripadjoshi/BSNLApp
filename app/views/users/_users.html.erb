@@ -3,11 +3,14 @@
     <td><%= user.username %></td>
     <td><%= user.email %></td>
     <td width="20%">
-      <% if current_user != user %>
-        <%= check_box_tag("user_account_active", nil, user.account_active? , class: "checkbox", user_id: user.id) %>
-      <% else %>
-        Yes
-      <% end %>
+      <%= check_box_tag("user_account_active", 
+                        nil, 
+                        user.account_active?, 
+                        class: "checkbox", 
+                        user_id: user.id, 
+                        disabled: current_user == user ? true : false,
+                        readonly: current_user == user ? true : false
+                      ) %>   
     </td>
    </tr>
 <%end%>

@@ -219,3 +219,9 @@ height: 60px;
       color:#000;
   }
 
+.navbar-brand {
+  background: url(logo.png) no-repeat 6px center;
+  width: 130px;
+  height: 100px;
+  display: block;
+}

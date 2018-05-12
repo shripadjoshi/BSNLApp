@@ -4,14 +4,17 @@ class RolesController < ApplicationController
 
   def index
     @roles = Role.paginate(:page => params[:page], :per_page => 10)
+    add_breadcrumb "roles", :roles_path
   end
 
   def new
     @role = Role.new
+    add_breadcrumb "new role", :new_role_path
   end
 
   def edit
     @role = get_role
+    add_breadcrumb "edit role", :edit_role_path
   end
 
   def create

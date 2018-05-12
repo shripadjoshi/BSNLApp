@@ -3,6 +3,7 @@ class UsersController < ApplicationController
 
   def index
     @users = User.paginate(:page => params[:page], :per_page => 10)
+    add_breadcrumb "users", :users_path
   end
 
   def status
