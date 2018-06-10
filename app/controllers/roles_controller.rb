@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   before_action :authenticate_user!
-  #before_filter :authorize_role, only: [:new, :create]
+  before_action :authorize_role
 
   def index
     @roles = Role.paginate(:page => params[:page], :per_page => 10)

@@ -5,7 +5,7 @@ $(document).ready(function(){
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     }
   });
-  $("#user_account_active").on("change", function(){
+  $(".user_account_active_inactive").on("change", function(){
     //$(".dvLoading").show();
     var clicked_object = $(this);
     $.ajax({
