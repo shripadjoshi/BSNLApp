@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root to: "home#index"
 
   resources :roles
+  resources :sims, except: [:show]
   resources :users, only: [:index] do
     put 'status', on: :member
   end

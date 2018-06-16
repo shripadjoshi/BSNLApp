@@ -1,5 +1,10 @@
 
-$(document).ready(function(){
+$(document).on('turbolinks:load', function(){
+  ///All the datatables
+  $('#sims').DataTable();
+  $('#roles').DataTable();
+  $('#users').DataTable();
+
   $.ajaxSetup({
     headers: {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -16,5 +21,33 @@ $(document).ready(function(){
           //$(".dvLoading").hide();
         }
     });
+  });
+
+  $(".sim_type").on("change", function(){
+    $(".sim_pairedness").prop('disabled', false);
+    if ($(this).val() === 'Postpaid') {
+      $(".sim_pairedness option[value*='Paired']").prop('disabled',true);
+      $(".sim_category option[value*='DSA SIM']").prop('disabled',true);
+      $(".sim_category option[value*='International roaming SIM']").prop('disabled',false);
+    } else {
+      $(".sim_pairedness option[value*='Paired']").prop('disabled',false);
+      $(".sim_category option[value*='DSA SIM']").prop('disabled',false);
+      $(".sim_category option[value*='International roaming SIM']").prop('disabled',true);
+    }
+  });
+
+  $(".sim_pairedness").on("change", function(){
+    $(".sim_category").prop('disabled', false);
+    if ($(this).val() === 'Paired') {
+      $(".sim_category option").prop('disabled',true);
+    } else if($(this).val() === 'Unpaired' && $(".sim_type").val() === 'Prepaid') {
+      $(".sim_category option[value*='DSA SIM']").prop('disabled',false);
+      $(".sim_category option[value*='Normal SIM']").prop('disabled',false);
+      $(".sim_category option[value*='International roaming SIM']").prop('disabled',true);
+    } else {
+      $(".sim_category option[value*='DSA SIM']").prop('disabled',true);
+      $(".sim_category option[value*='Normal SIM']").prop('disabled',false);
+      $(".sim_category option[value*='International roaming SIM']").prop('disabled',false);
+    }
   });
 });

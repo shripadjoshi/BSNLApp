@@ -50,7 +50,7 @@
             </li>
             <% if (user_signed_in?) && (current_user.has_role? :admin) %>
               <li>
-                <a href="#" class="dropdown-toggle <%= 'menu-top-active' if ['users', 'roles'].include?(params[:controller]) %>" id="ddlmenuItem" data-toggle="dropdown">Master
+                <a href="#" class="dropdown-toggle <%= 'menu-top-active' if ['users', 'roles', 'sims'].include?(params[:controller]) %>" id="ddlmenuItem" data-toggle="dropdown">Master
                   <i class="fa fa-angle-down"></i>
                 </a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="ddlmenuItem">
@@ -60,6 +60,9 @@
                   <li role="presentation">
                     <a role="menuitem" tabindex="-1" href="<%= users_path %>">Users</a>
                   </li>
+                  <li role="presentation">
+                  <a role="menuitem" tabindex="-1" href="<%= sims_path %>">SIMs</a>
+                </li>
                 </ul>
               </li>
             <% end %>

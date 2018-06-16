@@ -23,3 +23,7 @@ nbproject/*
 /*.txt
 coverage/
 rails_best_practices_output.html
+
+/.DS_Store
+/app/.DS_Store
+/app/assets/.DS_Store

@@ -1,0 +1,46 @@
+<% if @sim.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@sim.errors.count, "error") %> prohibited
+      this article from being saved:
+    </h2>
+    <ul>
+      <% @sim.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with model: @sim, local: true do |form| %>
+ 
+  <p>
+    <%= form.label :sim_no %><br>
+    <%= form.text_field :sim_no, class: 'form-control' %>
+  </p>
+
+  <p>
+    <%= form.label :sim_type %><br>
+    <%= form.select :sim_type, [['Prepaid', 'Prepaid'], ['Postpaid', 'Postpaid']], {prompt: 'Please select', include_blank: false}, {class: "form-control sim_type", id: "sim_type"} %>
+  </p>
+
+  <p>
+    <%= form.label :sim_pairedness %><br>
+    <%= form.select :sim_pairedness, [['Paired', 'Paired'], ['Unpaired', 'Unpaired']], {prompt: 'Please select', include_blank: false}, {class: "form-control sim_pairedness", id: "sim_pairedness", disabled: true} %>
+  </p>
+
+  <p>
+    <%= form.label :sim_category %><br>
+    <%= form.select :sim_category, [['Normal SIM', 'Normal SIM'], ['DSA SIM', 'DSA SIM'], ['International roaming SIM', 'International roaming SIM']], {prompt: 'Please select', include_blank: false}, {class: "form-control sim_category", id: "sim_category", disabled: true} %>
+  </p>
+ 
+  <p>
+    <%= form.label :sell_status %><br>
+    <%= form.check_box :sell_status %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>

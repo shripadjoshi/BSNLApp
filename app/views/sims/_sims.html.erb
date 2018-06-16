@@ -1,0 +1,13 @@
+<% sims.each do |sim| %>
+  <tr>    
+    <td><%= sim.sim_no %></td>
+    <td><%= sim.sim_type %></td>
+    <td><%= sim.sim_pairedness %></td>
+    <td><%= sim.sim_category %></td>
+    <td><%= sim.sell_status ? 'Already sell' :  'In stock' %></td>
+    <td>
+      <%= link_to "Edit", edit_sim_path(sim), class: 'btn btn-min btn-success' if current_user.has_role? :admin %>
+      <%= link_to "Delete", sim_path(sim), method: "DELETE", data: {confirm: 'Are you sure?'}, class: 'btn btn-min btn-danger' if current_user.has_role? :admin %>
+    </td>
+   </tr>
+<%end%>

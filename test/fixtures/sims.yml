@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  sim_no: MyString
+  sim_type: MyString
+  sim_pairedness: MyString
+  sim_category: MyString
+
+two:
+  sim_no: MyString
+  sim_type: MyString
+  sim_pairedness: MyString
+  sim_category: MyString

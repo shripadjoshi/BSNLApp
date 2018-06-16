@@ -1,0 +1,27 @@
+<div align="right">
+  <%= link_to('Add New SIM', new_sim_path) if current_user.has_role? :admin %>
+</div>
+<fieldset>
+  <legend> SIMs </legend>
+  <table class="table table-condensed" id='sims'>
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Type</th>
+        <th>Pairedness</th>
+        <th>Category</th>
+        <th>Sell status</th>
+        <th data-sorter="false">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render "sims", sims: @sims %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6"><%= pluralize(@sims.size, 'sim') %></td>
+      </tr>
+    </tfoot>
+  </table>
+  <%= will_paginate @sims %>
+</fieldset>
