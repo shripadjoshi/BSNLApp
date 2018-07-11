@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20180616123738) do
     t.string "sim_pairedness"
     t.string "sim_category"
     t.boolean "sell_status"
+    t.date "sell_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

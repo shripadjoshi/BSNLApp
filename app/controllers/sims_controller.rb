@@ -19,7 +19,6 @@ class SimsController < ApplicationController
 
   def create
     @sim = Sim.new(sim_params)
-
     if @sim.save
       redirect_to sims_path
     else
@@ -47,7 +46,8 @@ class SimsController < ApplicationController
   private
 
   def sim_params
-    params.require(:sim).permit(:sim_no, :sim_type, :sim_pairedness, :sim_category, :sell_status)
+    params[:sim][:sell_status] = params[:sim][:sell_date].present?
+    params.require(:sim).permit(:sim_no, :sim_type, :sim_pairedness, :sim_category, :sell_status, :sell_date)
   end
 
   def get_sim

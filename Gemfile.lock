@@ -49,6 +49,8 @@ GEM
     bindex (0.5.0)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
+    bootstrap-datepicker-rails (1.8.0.1)
+      railties (>= 3.0)
     breadcrumbs_on_rails (3.0.1)
     builder (3.2.3)
     bullet (5.7.5)
@@ -228,6 +230,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+  bootstrap-datepicker-rails
   breadcrumbs_on_rails
   bullet
   byebug

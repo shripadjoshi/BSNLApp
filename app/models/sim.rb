@@ -11,10 +11,3 @@ class Sim < ApplicationRecord
     ((sim_type == 'Prepaid' && sim_pairedness == 'Unpaired') || sim_type == 'Postpaid' )
   end
 end
-
-
-# t.string :sim_no
-# t.string :sim_type
-# t.string :sim_pairedness
-# t.string :sim_category
-# t.boolean :sell_status

@@ -6,6 +6,7 @@ class CreateSims < ActiveRecord::Migration[5.1]
       t.string :sim_pairedness
       t.string :sim_category
       t.boolean :sell_status
+      t.date :sell_date
 
       t.timestamps
     end

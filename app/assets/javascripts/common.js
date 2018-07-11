@@ -4,6 +4,12 @@ $(document).on('turbolinks:load', function(){
   $('#sims').DataTable();
   $('#roles').DataTable();
   $('#users').DataTable();
+  $('.sim-datepicker').datepicker({
+    format: 'yyyy-mm-dd',
+    autoclose: true,
+    todayHighlight: true,
+    endDate: '+0d'
+  });
 
   $.ajaxSetup({
     headers: {

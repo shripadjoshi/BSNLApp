@@ -33,10 +33,10 @@
     <%= form.label :sim_category %><br>
     <%= form.select :sim_category, [['Normal SIM', 'Normal SIM'], ['DSA SIM', 'DSA SIM'], ['International roaming SIM', 'International roaming SIM']], {prompt: 'Please select', include_blank: false}, {class: "form-control sim_category", id: "sim_category", disabled: true} %>
   </p>
- 
+
   <p>
-    <%= form.label :sell_status %><br>
-    <%= form.check_box :sell_status %>
+    <%= form.label :sell_date %><br>
+    <%= form.text_field :sell_date, class: 'form-control sim-datepicker'%>
   </p>
 
   <p>

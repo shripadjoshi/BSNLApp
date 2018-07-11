@@ -4,6 +4,7 @@
     <td><%= sim.sim_type %></td>
     <td><%= sim.sim_pairedness %></td>
     <td><%= sim.sim_category %></td>
+    <td><%= sim.sell_date ? sim.sell_date.strftime("%B %d, %Y") : '' %>
     <td><%= sim.sell_status ? 'Already sell' :  'In stock' %></td>
     <td>
       <%= link_to "Edit", edit_sim_path(sim), class: 'btn btn-min btn-success' if current_user.has_role? :admin %>
