@@ -14,3 +14,4 @@
 //= require jquery3
 //= require_tree .
 //= require bootstrap-datepicker
+//= require highcharts

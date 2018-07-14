@@ -57,3 +57,53 @@ $(document).on('turbolinks:load', function(){
     }
   });
 });
+
+function dailyChart(prepaid, postpaid, saleDate) {
+  var myChart = Highcharts.chart('daily_sale', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Daily sale'
+    },
+    xAxis: {
+      categories: ['Prepaid', 'Postpaid'],
+      allowDecimals: false
+  },
+    yAxis: {
+        title: {
+            text: 'Daily sale'
+        },
+        allowDecimals: false
+    },
+    series: [{
+      name: saleDate,
+      data: [parseInt(prepaid), parseInt(postpaid)]
+  }]
+  });
+}
+
+function dailyChart1(prepaid, postpaid, saleDate) {
+  var myChart = Highcharts.chart('daily_sale1', {
+    chart: {
+        type: 'bar'
+    },
+    title: {
+        text: 'Daily sale1'
+    },
+    xAxis: {
+      categories: ['Prepaid', 'Postpaid'],
+      allowDecimals: false
+  },
+    yAxis: {
+        title: {
+            text: 'Daily sale'
+        },
+        allowDecimals: false
+    },
+    series: [{
+      name: saleDate,
+      data: [parseInt(prepaid), parseInt(postpaid)]
+  }]
+  });
+}

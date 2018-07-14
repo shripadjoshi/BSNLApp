@@ -41,6 +41,7 @@ gem "rolify"
 gem 'will_paginate', '~> 3.1.0'
 gem "breadcrumbs_on_rails"
 gem 'bootstrap-datepicker-rails'
+gem "highcharts-rails"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
