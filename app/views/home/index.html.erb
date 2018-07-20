@@ -1,16 +1,17 @@
-<h3> Daily sales report for postpaid and prepaid </h3>
+<h3> Sales report for postpaid and prepaid </h3>
+
 <div id="container">
 	<div id="daily_sale" class="left"></div>
 	<div id="weekly_sale" class="right"></div>
 </div>
-
-
 
 <script type="text/javascript">
 $(document).on('turbolinks:load', function(){
   dailyChart('<%= @prepaid_daily_sale_cnt ? @prepaid_daily_sale_cnt : 0 %>', 
             '<%= @postpaid_daily_sale_cnt ? @postpaid_daily_sale_cnt : 0  %>', 
             "<%= Date.today %>");
+  weeklyChart('<%= raw @dates %>', '<%= raw @prepaid_sale %>', '<%= raw @postpaid_sale %>');
+
               
 });
 </script>

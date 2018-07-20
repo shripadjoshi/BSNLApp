@@ -76,6 +76,14 @@ function dailyChart(prepaid, postpaid, saleDate) {
         },
         allowDecimals: false
     },
+    tooltip: {
+      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+          '<td style="padding:0"><b>{point.y}</b></td></tr>',
+      footerFormat: '</table>',
+      shared: true,
+      useHTML: true
+  },
     series: [{
       name: saleDate,
       data: [parseInt(prepaid), parseInt(postpaid)]
@@ -83,27 +91,46 @@ function dailyChart(prepaid, postpaid, saleDate) {
   });
 }
 
-function dailyChart1(prepaid, postpaid, saleDate) {
-  var myChart = Highcharts.chart('daily_sale1', {
+function weeklyChart(saleDates, prepaid, postpaid) {
+  var myChart = Highcharts.chart('weekly_sale', {
     chart: {
-        type: 'bar'
+        type: 'column'
     },
     title: {
-        text: 'Daily sale1'
+        text: 'Weekly sale'
     },
     xAxis: {
-      categories: ['Prepaid', 'Postpaid'],
-      allowDecimals: false
-  },
+        categories: JSON.parse(saleDates),
+        crosshair: true
+    },
     yAxis: {
+        min: 0,
         title: {
-            text: 'Daily sale'
-        },
-        allowDecimals: false
+            text: 'Weekly sale'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
     },
     series: [{
-      name: saleDate,
-      data: [parseInt(prepaid), parseInt(postpaid)]
-  }]
-  });
+        name: 'Prepaid',
+        data: JSON.parse(prepaid)
+
+    }, {
+        name: 'Postpaid',
+        data: JSON.parse(postpaid)
+
+    }]
+}); 
 }
