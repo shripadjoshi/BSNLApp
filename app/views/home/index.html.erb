@@ -5,12 +5,19 @@
 	<div id="weekly_sale" class="right"></div>
 </div>
 
+<div id="container">
+	<div id="monthly_sale" class="left"></div>
+	<div id="quarterly_sale" class="right"></div>
+</div>
+
 <script type="text/javascript">
 $(document).on('turbolinks:load', function(){
   dailyChart('<%= @prepaid_daily_sale_cnt ? @prepaid_daily_sale_cnt : 0 %>', 
             '<%= @postpaid_daily_sale_cnt ? @postpaid_daily_sale_cnt : 0  %>', 
             "<%= Date.today %>");
   weeklyChart('<%= raw @dates %>', '<%= raw @prepaid_sale %>', '<%= raw @postpaid_sale %>');
+  monthlyChart('<%= raw @month_dates %>', '<%= raw @prepaid_month_sale %>', '<%= raw @postpaid_month_sale %>');
+  quarterlyChart('<%= raw @quarter %>', '<%= raw @prepaid_qty_sale %>', '<%= raw @postpaid_qty_sale %>');
 
               
 });

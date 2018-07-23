@@ -134,3 +134,91 @@ function weeklyChart(saleDates, prepaid, postpaid) {
     }]
 }); 
 }
+
+function monthlyChart(saleDates, prepaid, postpaid) {
+  var myChart = Highcharts.chart('monthly_sale', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Monthly sale'
+    },
+    xAxis: {
+        categories: JSON.parse(saleDates),
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Monthly sale'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Prepaid',
+        data: JSON.parse(prepaid)
+
+    }, {
+        name: 'Postpaid',
+        data: JSON.parse(postpaid)
+
+    }]
+}); 
+}
+
+function quarterlyChart(quarters, prepaid, postpaid) {
+  var myChart = Highcharts.chart('quarterly_sale', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Quarterly sale'
+    },
+    xAxis: {
+        categories: JSON.parse(quarters),
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        title: {
+            text: 'Quarterly sale'
+        }
+    },
+    tooltip: {
+        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            '<td style="padding:0"><b>{point.y}</b></td></tr>',
+        footerFormat: '</table>',
+        shared: true,
+        useHTML: true
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [{
+        name: 'Prepaid',
+        data: JSON.parse(prepaid)
+
+    }, {
+        name: 'Postpaid',
+        data: JSON.parse(postpaid)
+
+    }]
+}); 
+}
