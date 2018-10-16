@@ -58,11 +58,23 @@ $(document).on('turbolinks:load', function(){
   });
 });
 
-function dailyChart(prepaid, postpaid, saleDate) {
+function dailyChart(prepaid, postpaid, saleDate, prepaidSale, postPaid) {
   var myChart = Highcharts.chart('daily_sale', {
     chart: {
         type: 'bar'
     },
+    plotOptions: {
+      series: {
+          cursor: 'pointer',
+          point: {
+              events: {
+                  click: function () {
+                      generateDrillDownModal(this, prepaidSale, postPaid);
+                  }
+              }
+          }
+      }
+  },
     title: {
         text: 'Daily sale'
     },
@@ -220,5 +232,62 @@ function quarterlyChart(quarters, prepaid, postpaid) {
         data: JSON.parse(postpaid)
 
     }]
-}); 
+});
+}
+
+function generateDrillDownModal(dailyContext, prepaidSale, postpaidSale) {
+  var sale;
+  if(dailyContext.category === 'Prepaid') {
+    sale = JSON.parse(prepaidSale);
+  } else {
+    sale = JSON.parse(postpaidSale);
+  }
+  $('#myModal .modal-title').html("Daily Sales Drilldown for "+dailyContext.category);
+  $('#myModal .modal-body #demo').empty();
+  $('#myModal .modal-body #demo').append(
+    '<table cellpadding="0" cellspacing="0" border="0" class="display" id="drilldown_daily_sale_modal" width="100%">' +
+    '<thead>' +
+    '<tr>' +
+    '<th>Sim No</th>' +
+    '<th>Pairedness</th>' +
+    '<th>Category</th>' +
+    '<th>Sell Date</th>' +
+    '</tr>' +
+    '</thead>' +
+    '<tbody id="tbody_drilldown_daily_sale_modal">' +
+    '</tbody>' +
+    '</table>'
+    );
+  generateTableData(sale);
+  $("[rel=tooltip]").tooltip();
+  $('#drilldown_daily_sale_modal').dataTable({
+    "bFilter": true,
+    "bInfo": true,
+    "bAutoWidth": false,
+    "bLengthChange": false,
+    "bProcessing": true,
+    "aaSorting": [[ 1, "asc" ]],
+    "aoColumnDefs": [
+      {
+          'bSortable': false,
+          'aTargets': [ 0,1,2,3 ]
+      }
+    ],
+    "sDom": '<"top"f>rt<"bottom"ip><"clear">'
+});
+  $('#myModal').modal('show');
+}
+
+function generateTableData(sale) {
+  sale.forEach(function(sim) {
+    var sim_cat = (sim.sim_category ? sim.sim_category : 'NA');
+    $("#tbody_drilldown_daily_sale_modal").append(
+        '<tr class="odd gradeX bootstrap">' +
+        '<td>' + sim.sim_no + '</td>' +
+        '<td>' + sim.sim_pairedness + '</td>' +
+        '<td>' + sim_cat + '</td>' +
+        '<td>' + sim.sell_date + '</td>' +
+        '</tr>');
+      
+  });
 }
