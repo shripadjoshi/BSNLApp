@@ -73,6 +73,9 @@ class HomeController < ApplicationController
     q3_sale = @yearly_sale.select{|sale| (sale.sell_date >= q3_start && sale.sell_date <= q3_end)}.group_by{|x| x.sim_type}
     q4_sale = @yearly_sale.select{|sale| (sale.sell_date >= q4_start && sale.sell_date <= q4_end)}.group_by{|x| x.sim_type}
 
+    
+    @quartely_sale = {"q1": q2_sale, "q2": q3_sale, "q3": q4_sale, "q4": q1_sale}
+
     @prepaid_qty_sale.push((q2_sale["Prepaid"] ? q2_sale["Prepaid"].count : 0))
     @postpaid_qty_sale.push((q2_sale["Postpaid"] ? q2_sale["Postpaid"].count : 0))
 

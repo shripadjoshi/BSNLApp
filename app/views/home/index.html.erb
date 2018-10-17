@@ -40,7 +40,7 @@ $(document).on('turbolinks:load', function(){
               '<%= raw @weekly_prepaid_sale.to_json %>', '<%= raw @weekly_postpaid_sale.to_json %>');
   monthlyChart('<%= raw @month_dates %>', '<%= raw @prepaid_month_sale %>', '<%= raw @postpaid_month_sale %>', 
                '<%= raw @prepaid_monthly_sale.to_json %>', '<%= raw @postpaid_monthly_sale.to_json %>');
-  quarterlyChart('<%= raw @quarter %>', '<%= raw @prepaid_qty_sale %>', '<%= raw @postpaid_qty_sale %>');
+  quarterlyChart('<%= raw @quarter %>', '<%= raw @prepaid_qty_sale %>', '<%= raw @postpaid_qty_sale %>', '<%= raw @quartely_sale.to_json%>');
 
               
 });

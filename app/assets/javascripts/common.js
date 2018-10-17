@@ -211,7 +211,7 @@ function monthlyChart(saleDates, prepaid, postpaid, prepaidMonthly, postpaidMont
 }); 
 }
 
-function quarterlyChart(quarters, prepaid, postpaid) {
+function quarterlyChart(quarters, prepaid, postpaid, quarterlySale) {
   var myChart = Highcharts.chart('quarterly_sale', {
     chart: {
         type: 'column'
@@ -241,6 +241,16 @@ function quarterlyChart(quarters, prepaid, postpaid) {
         column: {
             pointPadding: 0.2,
             borderWidth: 0
+        },
+        series: {
+          cursor: 'pointer',
+          point: {
+              events: {
+                  click: function () {
+                    generateDrillDownModalForQuarter(this, quarterlySale);
+                  }
+              }
+          }
         }
     },
     series: [{
@@ -253,6 +263,47 @@ function quarterlyChart(quarters, prepaid, postpaid) {
 
     }]
 });
+}
+function generateDrillDownModalForQuarter(context, quarterlySale) {
+  var sale, actualSale, quarter, date = '';
+  sale = JSON.parse(quarterlySale);
+  quarter = (context.category.split(" ")[0]).toLowerCase()
+  actualSale = sale[quarter][context.series.name]
+
+  $('#myModal .modal-title').html(context.category + " Drilldown for "+ context.series.name);
+  $('#myModal .modal-body #demo').empty();
+  $('#myModal .modal-body #demo').append(
+    '<table cellpadding="0" cellspacing="0" border="0" class="display" id="drilldown_daily_sale_modal" width="100%">' +
+    '<thead>' +
+    '<tr>' +
+    '<th>Sim No</th>' +
+    '<th>Pairedness</th>' +
+    '<th>Category</th>' +
+    '<th>Sell Date</th>' +
+    '</tr>' +
+    '</thead>' +
+    '<tbody id="tbody_drilldown_daily_sale_modal">' +
+    '</tbody>' +
+    '</table>'
+    );
+  generateTableData(actualSale, date);
+  $("[rel=tooltip]").tooltip();
+  $('#drilldown_daily_sale_modal').dataTable({
+    "bFilter": true,
+    "bInfo": true,
+    "bAutoWidth": false,
+    "bLengthChange": false,
+    "bProcessing": true,
+    "aaSorting": [[ 1, "asc" ]],
+    "aoColumnDefs": [
+      {
+          'bSortable': false,
+          'aTargets': [ 0,1,2,3 ]
+      }
+    ],
+    "sDom": '<"top"f>rt<"bottom"ip><"clear">'
+});
+  $('#myModal').modal('show');
 }
 
 function generateDrillDownModal(type, context, prepaidSale, postpaidSale) {
