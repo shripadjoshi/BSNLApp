@@ -17,20 +17,32 @@ class HomeController < ApplicationController
     start_month_date = Date.today.beginning_of_month
     end_month_date = Date.today.end_of_month
 
-    monthly_sale = @yearly_sale.select{|sale| (sale.sell_date >= start_month_date && sale.sell_date <= end_month_date)}
-                               .group_by{|data| [data.sell_date.to_date.strftime('%d %b, %Y'),data.sim_type]}
-
+    month_sale = @yearly_sale.select{|sale| (sale.sell_date >= start_month_date && sale.sell_date <= end_month_date)}
     
+    @prepaid_monthly_sale = month_sale.select{|sale| sale.sim_type == 'Prepaid'}
+    @postpaid_monthly_sale = month_sale.select{|sale| sale.sim_type == 'Postpaid'}
+
+    monthly_sale = month_sale.group_by{|data| [data.sell_date.to_date.strftime('%d %b, %Y'),data.sim_type]}
+
     today_date = Date.today.strftime('%d %b, %Y')
+    
     daily_sale = @yearly_sale.select{|sale| sale.sell_date == Date.today}
     @prepaid_daily_sale = daily_sale.select{|sale| sale.sim_type == 'Prepaid'}
     @postpaid_daily_sale = daily_sale.select{|sale| sale.sim_type == 'Postpaid'}
+    
     @prepaid_daily_sale_cnt = (monthly_sale[["#{today_date}", "Prepaid"]] ? monthly_sale[["#{today_date}", "Prepaid"]].count : 0)
     @postpaid_daily_sale_cnt = (monthly_sale[["#{today_date}", "Postpaid"]] ? monthly_sale[["#{today_date}", "Postpaid"]].count : 0)
 
     
     start_date = Date.today.beginning_of_week
     end_date = Date.today.end_of_week
+
+    @weekly_prepaid_sale = month_sale.select{|sale| sale.sim_type == 'Prepaid' && sale.sell_date >= start_date && sale.sell_date <= end_date}
+    @weekly_postpaid_sale = month_sale.select{|sale| sale.sim_type == 'Postpaid' && sale.sell_date >= start_date && sale.sell_date <= end_date}
+
+    @prepaid_monthly_sale = month_sale.select{|sale| sale.sim_type == 'Prepaid'}
+    @postpaid_monthly_sale = month_sale.select{|sale| sale.sim_type == 'Postpaid'}
+
     @prepaid_sale = []
     @postpaid_sale = []
     @dates = []

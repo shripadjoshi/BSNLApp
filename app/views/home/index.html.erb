@@ -36,11 +36,12 @@ $(document).on('turbolinks:load', function(){
   dailyChart('<%= @prepaid_daily_sale_cnt ? @prepaid_daily_sale_cnt : 0 %>', 
             '<%= @postpaid_daily_sale_cnt ? @postpaid_daily_sale_cnt : 0  %>', 
             "<%= Date.today %>", '<%= raw @prepaid_daily_sale.to_json %>', '<%= raw @postpaid_daily_sale.to_json %>');
-  weeklyChart('<%= raw @dates %>', '<%= raw @prepaid_sale %>', '<%= raw @postpaid_sale %>');
-  monthlyChart('<%= raw @month_dates %>', '<%= raw @prepaid_month_sale %>', '<%= raw @postpaid_month_sale %>');
+  weeklyChart('<%= raw @dates %>', '<%= raw @prepaid_sale %>', '<%= raw @postpaid_sale %>',
+              '<%= raw @weekly_prepaid_sale.to_json %>', '<%= raw @weekly_postpaid_sale.to_json %>');
+  monthlyChart('<%= raw @month_dates %>', '<%= raw @prepaid_month_sale %>', '<%= raw @postpaid_month_sale %>', 
+               '<%= raw @prepaid_monthly_sale.to_json %>', '<%= raw @postpaid_monthly_sale.to_json %>');
   quarterlyChart('<%= raw @quarter %>', '<%= raw @prepaid_qty_sale %>', '<%= raw @postpaid_qty_sale %>');
 
               
 });
 </script>
-

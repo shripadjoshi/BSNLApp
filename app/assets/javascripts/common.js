@@ -69,7 +69,7 @@ function dailyChart(prepaid, postpaid, saleDate, prepaidSale, postPaid) {
           point: {
               events: {
                   click: function () {
-                      generateDrillDownModal(this, prepaidSale, postPaid);
+                      generateDrillDownModal('daily', this, prepaidSale, postPaid);
                   }
               }
           }
@@ -103,7 +103,7 @@ function dailyChart(prepaid, postpaid, saleDate, prepaidSale, postPaid) {
   });
 }
 
-function weeklyChart(saleDates, prepaid, postpaid) {
+function weeklyChart(saleDates, prepaid, postpaid, prepaidSale, postpaidSale) {
   var myChart = Highcharts.chart('weekly_sale', {
     chart: {
         type: 'column'
@@ -133,6 +133,16 @@ function weeklyChart(saleDates, prepaid, postpaid) {
         column: {
             pointPadding: 0.2,
             borderWidth: 0
+        },
+        series: {
+          cursor: 'pointer',
+          point: {
+              events: {
+                  click: function () {
+                    generateDrillDownModal('weekly', this, prepaidSale, postpaidSale);
+                  }
+              }
+          }
         }
     },
     series: [{
@@ -147,7 +157,7 @@ function weeklyChart(saleDates, prepaid, postpaid) {
 }); 
 }
 
-function monthlyChart(saleDates, prepaid, postpaid) {
+function monthlyChart(saleDates, prepaid, postpaid, prepaidMonthly, postpaidMonthly) {
   var myChart = Highcharts.chart('monthly_sale', {
     chart: {
         type: 'column'
@@ -177,6 +187,16 @@ function monthlyChart(saleDates, prepaid, postpaid) {
         column: {
             pointPadding: 0.2,
             borderWidth: 0
+        },
+        series: {
+          cursor: 'pointer',
+          point: {
+              events: {
+                  click: function () {
+                    generateDrillDownModal('monthly', this, prepaidMonthly, postpaidMonthly);
+                  }
+              }
+          }
         }
     },
     series: [{
@@ -235,14 +255,21 @@ function quarterlyChart(quarters, prepaid, postpaid) {
 });
 }
 
-function generateDrillDownModal(dailyContext, prepaidSale, postpaidSale) {
-  var sale;
-  if(dailyContext.category === 'Prepaid') {
+function generateDrillDownModal(type, context, prepaidSale, postpaidSale) {
+  var sale, date = '';
+  if(context.category === 'Prepaid' || context.series.name === 'Prepaid') {
     sale = JSON.parse(prepaidSale);
   } else {
     sale = JSON.parse(postpaidSale);
   }
-  $('#myModal .modal-title').html("Daily Sales Drilldown for "+dailyContext.category);
+  var title;
+  if(type === 'daily'){
+    title = context.category;
+  } else {
+    date = context.category;
+    title = context.series.name;
+  }
+  $('#myModal .modal-title').html("Daily Sales Drilldown for "+ title);
   $('#myModal .modal-body #demo').empty();
   $('#myModal .modal-body #demo').append(
     '<table cellpadding="0" cellspacing="0" border="0" class="display" id="drilldown_daily_sale_modal" width="100%">' +
@@ -258,7 +285,7 @@ function generateDrillDownModal(dailyContext, prepaidSale, postpaidSale) {
     '</tbody>' +
     '</table>'
     );
-  generateTableData(sale);
+  generateTableData(sale, date);
   $("[rel=tooltip]").tooltip();
   $('#drilldown_daily_sale_modal').dataTable({
     "bFilter": true,
@@ -278,16 +305,43 @@ function generateDrillDownModal(dailyContext, prepaidSale, postpaidSale) {
   $('#myModal').modal('show');
 }
 
-function generateTableData(sale) {
+function generateTableData(sale, date) {
+  var dt;
+  if (date != '') {
+    dt = formatDate(date)
+  }
   sale.forEach(function(sim) {
     var sim_cat = (sim.sim_category ? sim.sim_category : 'NA');
-    $("#tbody_drilldown_daily_sale_modal").append(
+    if (date != '' && sim.sell_date == dt) {
+      $("#tbody_drilldown_daily_sale_modal").append(
         '<tr class="odd gradeX bootstrap">' +
         '<td>' + sim.sim_no + '</td>' +
         '<td>' + sim.sim_pairedness + '</td>' +
         '<td>' + sim_cat + '</td>' +
         '<td>' + sim.sell_date + '</td>' +
         '</tr>');
+    } else if (date == '') {
+      $("#tbody_drilldown_daily_sale_modal").append(
+        '<tr class="odd gradeX bootstrap">' +
+        '<td>' + sim.sim_no + '</td>' +
+        '<td>' + sim.sim_pairedness + '</td>' +
+        '<td>' + sim_cat + '</td>' +
+        '<td>' + sim.sell_date + '</td>' +
+        '</tr>');
+    }
+    
       
   });
+}
+
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
 }
