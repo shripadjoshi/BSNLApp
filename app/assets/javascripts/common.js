@@ -1,6 +1,7 @@
 
 $(document).on('turbolinks:load', function(){
   ///All the datatables
+  $('#sim_targets').DataTable();
   $('#sims').DataTable();
   $('#roles').DataTable();
   $('#users').DataTable();
@@ -214,7 +215,7 @@ function monthlyChart(saleDates, prepaid, postpaid, prepaidMonthly, postpaidMont
 function quarterlyChart(quarters, prepaid, postpaid, quarterlySale) {
   var myChart = Highcharts.chart('quarterly_sale', {
     chart: {
-        type: 'column'
+        type: 'line'
     },
     title: {
         text: 'Quarterly sale'

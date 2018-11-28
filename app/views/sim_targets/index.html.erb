@@ -1,0 +1,35 @@
+<div align="right">
+  <%= link_to('Add New SIM Target', new_sim_target_path) if current_user.has_role? :admin %>
+</div>
+<fieldset>
+  <legend> SIM Targets </legend>
+  <table class="table table-condensed" id='sim_targets'>
+    <thead>
+      <tr>
+        <th>Year</th>
+        <th>January</th>
+        <th>February</th>
+        <th>March</th>
+        <th>April</th>
+        <th>May</th>
+        <th>June</th>
+        <th>July</th>
+        <th>August</th>
+        <th>September</th>
+        <th>October</th>
+        <th>November</th>
+        <th>December</th>
+        <th data-sorter="false">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render "sim_targets", sim_targets: @sim_targets %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="14"><%= pluralize(@sim_targets.size, 'sim_target') %></td>
+      </tr>
+    </tfoot>
+  </table>
+  <%= will_paginate @sim_targets %>
+</fieldset>

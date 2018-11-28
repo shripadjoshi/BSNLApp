@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :roles
   resources :sims, except: [:show]
+  resources :sim_targets, except: [:show]
   resources :users, only: [:index] do
     put 'status', on: :member
   end

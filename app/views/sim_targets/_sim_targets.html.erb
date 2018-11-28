@@ -1,0 +1,13 @@
+<% sim_targets.each do |sim_target| %>
+  <% year_target = sim_target.target.split(',')%>
+  <tr>    
+    <td><%= sim_target.year %></td>
+    <% year_target.each do |yt| %>
+      <td><%= yt %></td>
+    <% end %>
+    <td>
+      <%= link_to "Edit", edit_sim_target_path(sim_target), class: 'btn btn-min btn-success' if current_user.has_role? :admin %>
+      <%= link_to "Delete", sim_target_path(sim_target), method: "DELETE", data: {confirm: 'Are you sure?'}, class: 'btn btn-min btn-danger' if current_user.has_role? :admin %>
+    </td>
+   </tr>
+<%end%>
